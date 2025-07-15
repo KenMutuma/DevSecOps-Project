@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: netflix-app
+  name: netmirror-app
   labels:
-    app: netflix-app
+    app: netmirror-app
 spec:
   replicas: 4
   selector:
     matchLabels:
-      app: netflix-app
+      app: netmirror-app
   template:
     metadata:
       labels:
-        app: netflix-app
+        app: netmirror-app
     spec:
       containers:
-      - name: netflix-app
-        image: nasi101/netflix:latest
+      - name: netmirror-app
+        image: rubbicon/netflix:latest
         ports:
         - containerPort: 80
