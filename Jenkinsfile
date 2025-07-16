@@ -63,7 +63,7 @@ pipeline{
                      docker.image('bridgecrew/checkov:latest').inside("--entrypoint=''") {
                          unstash 'terragoat'
                          try {
-                             sh 'checkov -f Kubernetes/*.yaml Dockerfile --framework kubernetes dockerfile -o json --output-file-path checkov_results.json --repo-id example/terragoat --branch master --quiet'
+                             sh 'checkov -d /Kubernetes --framework kubernetes -o json --output-file-path checkov_results.json --repo-id example/terragoat --branch master --quiet'
                              junit allowEmptyResults: true, testResults: 'checkov_results.json'
                              archiveArtifacts artifacts: 'checkov_results.json', fingerprint: true
                          } catch (err) {
