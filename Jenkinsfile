@@ -51,7 +51,7 @@ pipeline{
             }
         }
    
-         stage('Checkout') {
+        stage('Checkout') {
              steps {
                  git branch: 'master', url: 'https://github.com/bridgecrewio/terragoat'
                  stash includes: '**/*', name: 'terragoat'
@@ -73,12 +73,7 @@ pipeline{
                          }
                      }
                  }
-                 post {
-                    always {
-                   
-                     echo "Checkov scan completed. Results saved to checkov_results.json"
-                 }
-             }
+              }
          }
      
         stage("Docker Build & Push"){
@@ -103,11 +98,11 @@ pipeline{
         //     }
         // }
     }
-options {
+    options {
          preserveStashes()
          timestamps()
-}
-post {
+    }
+ post {
     always {
         emailext(
             subject: "'${currentBuild.result}' - Job: ${env.JOB_NAME} (Build #${env.BUILD_NUMBER})",
@@ -123,5 +118,6 @@ post {
          )
          }
     }
-}
+}  
+
 
